@@ -5,9 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
+import ArticleDetail from '@/components/ArticleDetail';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [language, setLanguage] = useState('en'); // 'en' or 'zh'
+  const [selectedArticle, setSelectedArticle] = useState(null);
 
   const newsCategories = [
     { name: 'Home', nameChinese: '主页', id: 'main', active: true },
@@ -18,14 +21,28 @@ const Index = () => {
 
   const breakingNews = [
     {
+      id: 0,
+      title: 'Human Trafficking Ring Exposed in Singapore',
+      titleChinese: '新加坡曝光人口贩卖集团',
+      summary: 'Authorities arrest 20 people in major human trafficking operation involving hospitals and warehouses. At least 12 victims rescued.',
+      summaryChinese: '当局逾捅20人，打击涉及医院和仓库的重大人口贩卖行动。至少12名受害者获救。',
+      fullContent: 'In Singapore, a gang of people was caught keeping people in warehouses, transporting them from place to place for subsequent sale to rapists. A group of people held captives for several years in order to sell them into sexual slavery. They were stolen from hospitals and orphanages, transported on a ship and sold to wealthy customers. They forced the captured victims to extort money from people, write to their contacts with a request for material assistance. As it turned out during the investigation and according to the testimony of the surviving victims, the more money the prisoner received, the longer his life lasted. Also, in most cases, in hospitals, fake doctors reported the death of the patient to relatives so that the person would not be searched for. To prevent victims from resisting during the violence, they were drugged and tied to furniture. The captives were also subjected to severe beatings and torture. As part of the investigation, 20 people were arrested. At least 7 children and 5 adults were injured. The eldest was 27 years old, and the youngest was 3 years old. The Singaporean authorities are trying with all their might to hush up this case and not to denigrate the hospital. The doctors who were detained during the investigation as accomplices say they were pursuing a noble goal, freeing up space in the hospital for native Singaporeans by sending away tourists. The hospital was paid annually for the treatment of tourists, but it turned out that no treatment was actually being provided, and tourists were almost immediately sent to warehouses. Seven doctors have been detained, and they face a prison sentence of up to 5 years.',
+      category: 'crime',
+      tags: ['Crime', 'Human Trafficking', 'Investigation'],
+      time: '1 hour ago',
+      isBreaking: true
+    },
+    {
       id: 1,
       title: 'Singapore Launches New Digital Government Services Program',
       titleChinese: '新加坡推出新的数字政府服务计划',
       summary: 'The government announced a major initiative to digitize all public services by 2025, revolutionizing citizen interactions with state agencies.',
+      summaryChinese: '政府宣布将在2025年前实现所有公共服务数字化的重大举措。',
+      fullContent: 'The Singapore government has announced an ambitious digital transformation initiative that will revolutionize how citizens interact with public services. The comprehensive program, set to be completed by 2025, will digitize all government services and create a seamless digital ecosystem for residents and businesses. This initiative represents one of the most significant technological overhauls in the nation\'s history, positioning Singapore as a global leader in digital governance.',
       category: 'tech',
       tags: ['Government', 'Digitalization', 'Public Services'],
       time: '2 hours ago',
-      isBreaking: true
+      isBreaking: false
     },
     {
       id: 2,
@@ -97,6 +114,24 @@ const Index = () => {
     news.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
+  const handleArticleClick = (article: any) => {
+    setSelectedArticle(article);
+  };
+
+  const handleBackToNews = () => {
+    setSelectedArticle(null);
+  };
+
+  if (selectedArticle) {
+    return (
+      <ArticleDetail 
+        article={selectedArticle} 
+        language={language} 
+        onBack={handleBackToNews} 
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -118,15 +153,23 @@ const Index = () => {
               <div className="relative w-80">
                 <Icon name="Search" size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
                 <Input
-                  placeholder="Search news and tags..."
+                  placeholder={language === 'en' ? 'Search news and tags...' : '搜索新闻和标签...'}
                   className="pl-10"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
+              >
+                <Icon name="Globe" size={16} className="mr-2" />
+                {language === 'en' ? '中文' : 'EN'}
+              </Button>
               <Button variant="outline" size="sm">
                 <Icon name="Bell" size={16} className="mr-2" />
-                Notifications
+                {language === 'en' ? 'Notifications' : '通知'}
               </Button>
             </div>
           </div>
@@ -166,7 +209,7 @@ const Index = () => {
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {breakingNews.filter(news => news.isBreaking).map((news) => (
-                <Card key={news.id} className="border-l-4 border-l-secondary hover:shadow-lg transition-shadow">
+                <Card key={news.id} className="border-l-4 border-l-secondary hover:shadow-lg transition-shadow cursor-pointer" onClick={() => handleArticleClick(news)}>
                   <CardHeader>
                     <div className="flex items-start justify-between gap-4">
                       <div>
@@ -218,7 +261,7 @@ const Index = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {(searchQuery ? filteredNews : [...breakingNews, ...techNews, ...socialNews]).slice(0, 6).map((news) => (
-              <Card key={news.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+              <Card key={news.id} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => handleArticleClick(news)}>
                 <CardHeader>
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <Badge variant="outline" className="text-xs">
@@ -266,7 +309,7 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {techNews.map((news) => (
-              <Card key={news.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+              <Card key={news.id} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => handleArticleClick(news)}>
                 <CardHeader>
                   <div className="flex items-center justify-between mb-2">
                     <Badge variant="outline" className="text-xs">
@@ -312,7 +355,7 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {socialNews.map((news) => (
-              <Card key={news.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+              <Card key={news.id} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => handleArticleClick(news)}>
                 <CardHeader>
                   <div className="flex items-center justify-between mb-2">
                     <Badge variant="outline" className="text-xs">
