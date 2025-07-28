@@ -10,38 +10,41 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const newsCategories = [
-    { name: 'Главная', id: 'main', active: true },
-    { name: 'IT и технологии', id: 'tech', active: false },
-    { name: 'Социальные новости', id: 'social', active: false },
-    { name: 'События', id: 'events', active: false }
+    { name: 'Home', nameChinese: '主页', id: 'main', active: true },
+    { name: 'Technology', nameChinese: '科技', id: 'tech', active: false },
+    { name: 'Society', nameChinese: '社会', id: 'social', active: false },
+    { name: 'Events', nameChinese: '活动', id: 'events', active: false }
   ];
 
   const breakingNews = [
     {
       id: 1,
-      title: 'Сингапур запускает новую программу цифровизации госуслуг',
-      summary: 'Правительство объявило о масштабной инициативе по переводу всех государственных услуг в цифровой формат к 2025 году.',
+      title: 'Singapore Launches New Digital Government Services Program',
+      titleChinese: '新加坡推出新的数字政府服务计划',
+      summary: 'The government announced a major initiative to digitize all public services by 2025, revolutionizing citizen interactions with state agencies.',
       category: 'tech',
-      tags: ['правительство', 'цифровизация', 'госуслуги'],
-      time: '2 часа назад',
+      tags: ['Government', 'Digitalization', 'Public Services'],
+      time: '2 hours ago',
       isBreaking: true
     },
     {
       id: 2,
-      title: 'В Marina Bay открылся новый технологический центр',
-      summary: 'Крупнейший в Юго-Восточной Азии инновационный хаб начал работу и уже привлек более 50 стартапов.',
+      title: 'New Technology Hub Opens at Marina Bay',
+      titleChinese: '滨海湾新科技中心开业',
+      summary: 'Southeast Asia\'s largest innovation hub begins operations, already attracting over 50 startups to its state-of-the-art facilities.',
       category: 'tech',
-      tags: ['Marina Bay', 'стартапы', 'инновации'],
-      time: '4 часа назад',
+      tags: ['Marina Bay', 'Startups', 'Innovation'],
+      time: '4 hours ago',
       isBreaking: false
     },
     {
       id: 3,
-      title: 'Новая транспортная система свяжет все районы города',
-      summary: 'Проект автономных автобусов получил одобрение и начнет тестирование в следующем месяце.',
+      title: 'New Transport System to Connect All City Districts',
+      titleChinese: '新交通系统将连接城市所有区域',
+      summary: 'Autonomous bus project receives approval and will begin testing operations next month across multiple districts.',
       category: 'social',
-      tags: ['транспорт', 'автономные системы', 'городское планирование'],
-      time: '6 часов назад',
+      tags: ['Transport', 'Autonomous Systems', 'Urban Planning'],
+      time: '6 hours ago',
       isBreaking: false
     }
   ];
@@ -49,38 +52,42 @@ const Index = () => {
   const techNews = [
     {
       id: 4,
-      title: 'Сингапур становится лидером в области ИИ-исследований',
-      summary: 'Местные университеты получили рекордное финансирование на исследования искусственного интеллекта.',
+      title: 'Singapore Emerges as AI Research Leader',
+      titleChinese: '新加坡成为人工智能研究领导者',
+      summary: 'Local universities receive record funding for artificial intelligence research, positioning Singapore at the forefront of AI innovation.',
       category: 'tech',
-      tags: ['ИИ', 'исследования', 'университеты'],
-      time: '8 часов назад'
+      tags: ['AI', 'Research', 'Universities'],
+      time: '8 hours ago'
     },
     {
       id: 5,
-      title: 'Финтех-сектор показал рост на 40% за год',
-      summary: 'Банковские технологии и цифровые платежи демонстрируют устойчивый рост в регионе.',
+      title: 'Fintech Sector Shows 40% Growth This Year',
+      titleChinese: '金融科技行业今年增长40%',
+      summary: 'Banking technologies and digital payments demonstrate sustained growth across the region, cementing Singapore\'s fintech leadership.',
       category: 'tech',
-      tags: ['финтех', 'банкинг', 'платежи'],
-      time: '12 часов назад'
+      tags: ['Fintech', 'Banking', 'Digital Payments'],
+      time: '12 hours ago'
     }
   ];
 
   const socialNews = [
     {
       id: 6,
-      title: 'Экологическая инициатива: Сингапур к 2030 году станет углеродно-нейтральным',
-      summary: 'Амбициозный план включает массовое озеленение и переход на возобновляемые источники энергии.',
+      title: 'Green Initiative: Singapore to Become Carbon Neutral by 2030',
+      titleChinese: '绿色倡议：新加坡将在2030年实现碳中和',
+      summary: 'Ambitious plan includes massive urban greening and transition to renewable energy sources across the island nation.',
       category: 'social',
-      tags: ['экология', 'углеродная нейтральность', 'зеленая энергия'],
-      time: '14 часов назад'
+      tags: ['Environment', 'Carbon Neutral', 'Green Energy'],
+      time: '14 hours ago'
     },
     {
       id: 7,
-      title: 'Программа поддержки малого бизнеса расширяется',
-      summary: 'Правительство выделило дополнительные средства на поддержку предпринимателей после пандемии.',
+      title: 'Small Business Support Program Expands',
+      titleChinese: '小企业支持计划扩大',
+      summary: 'Government allocates additional funding to support entrepreneurs in post-pandemic economic recovery efforts.',
       category: 'social',
-      tags: ['малый бизнес', 'поддержка', 'экономика'],
-      time: '16 часов назад'
+      tags: ['Small Business', 'Support', 'Economy'],
+      time: '16 hours ago'
     }
   ];
 
@@ -97,9 +104,12 @@ const Index = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-4">
-              <h1 className="text-3xl font-bold news-title text-primary">
-                SINGAPORE NEWS
-              </h1>
+              <div className="text-center">
+                <h1 className="text-3xl font-bold news-title text-primary">
+                  SINGAPORE NEWS
+                </h1>
+                <p className="text-sm text-muted-foreground">新加坡新闻</p>
+              </div>
               <Badge variant="secondary" className="text-xs">
                 LIVE
               </Badge>
@@ -108,7 +118,7 @@ const Index = () => {
               <div className="relative w-80">
                 <Icon name="Search" size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
                 <Input
-                  placeholder="Поиск новостей и тегов..."
+                  placeholder="Search news and tags..."
                   className="pl-10"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -116,7 +126,7 @@ const Index = () => {
               </div>
               <Button variant="outline" size="sm">
                 <Icon name="Bell" size={16} className="mr-2" />
-                Уведомления
+                Notifications
               </Button>
             </div>
           </div>
@@ -132,7 +142,10 @@ const Index = () => {
                     : 'border-transparent text-muted-foreground hover:text-foreground'
                 }`}
               >
-                {category.name}
+                <div className="text-center">
+                  <div>{category.name}</div>
+                  <div className="text-xs opacity-75">{category.nameChinese}</div>
+                </div>
               </button>
             ))}
           </nav>
@@ -146,7 +159,8 @@ const Index = () => {
             <div className="flex items-center gap-3 mb-6">
               <div className="flex items-center gap-2 bg-secondary text-secondary-foreground px-3 py-1 rounded-full">
                 <Icon name="AlertTriangle" size={16} />
-                <span className="font-semibold text-sm">СРОЧНЫЕ НОВОСТИ</span>
+                <span className="font-semibold text-sm">BREAKING NEWS</span>
+                <span className="text-xs opacity-75">突发新闻</span>
               </div>
             </div>
             
@@ -155,9 +169,14 @@ const Index = () => {
                 <Card key={news.id} className="border-l-4 border-l-secondary hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <div className="flex items-start justify-between gap-4">
-                      <CardTitle className="news-title text-xl leading-tight">
-                        {news.title}
-                      </CardTitle>
+                      <div>
+                        <CardTitle className="news-title text-xl leading-tight mb-1">
+                          {news.title}
+                        </CardTitle>
+                        <p className="text-sm text-muted-foreground font-medium">
+                          {news.titleChinese}
+                        </p>
+                      </div>
                       <Badge variant="destructive" className="text-xs whitespace-nowrap">
                         BREAKING
                       </Badge>
@@ -187,10 +206,13 @@ const Index = () => {
         {/* Main News Grid */}
         <section className="mb-12">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold news-title">Последние новости</h2>
+            <div>
+              <h2 className="text-2xl font-bold news-title">Latest News</h2>
+              <p className="text-sm text-muted-foreground">最新消息</p>
+            </div>
             <Button variant="outline" size="sm">
               <Icon name="RefreshCw" size={16} className="mr-2" />
-              Обновить
+              Refresh
             </Button>
           </div>
 
@@ -200,13 +222,18 @@ const Index = () => {
                 <CardHeader>
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <Badge variant="outline" className="text-xs">
-                      {news.category === 'tech' ? 'IT' : news.category === 'social' ? 'Общество' : 'Главная'}
+                      {news.category === 'tech' ? 'Technology' : news.category === 'social' ? 'Society' : 'Home'}
                     </Badge>
                     <span className="text-xs text-muted-foreground">{news.time}</span>
                   </div>
-                  <CardTitle className="news-title text-lg leading-snug">
+                  <CardTitle className="news-title text-lg leading-snug mb-1">
                     {news.title}
                   </CardTitle>
+                  {news.titleChinese && (
+                    <p className="text-sm text-muted-foreground font-medium mb-2">
+                      {news.titleChinese}
+                    </p>
+                  )}
                   <CardDescription className="news-subtitle">
                     {news.summary}
                   </CardDescription>
@@ -231,7 +258,10 @@ const Index = () => {
         <section className="mb-12">
           <div className="flex items-center gap-3 mb-6">
             <Icon name="Monitor" size={24} className="text-primary" />
-            <h2 className="text-2xl font-bold news-title">IT и технологии</h2>
+            <div>
+              <h2 className="text-2xl font-bold news-title">Technology</h2>
+              <p className="text-sm text-muted-foreground">科技新闻</p>
+            </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -240,13 +270,16 @@ const Index = () => {
                 <CardHeader>
                   <div className="flex items-center justify-between mb-2">
                     <Badge variant="outline" className="text-xs">
-                      IT
+                      Technology
                     </Badge>
                     <span className="text-xs text-muted-foreground">{news.time}</span>
                   </div>
-                  <CardTitle className="news-title text-xl">
+                  <CardTitle className="news-title text-xl mb-1">
                     {news.title}
                   </CardTitle>
+                  <p className="text-sm text-muted-foreground font-medium mb-2">
+                    {news.titleChinese}
+                  </p>
                   <CardDescription className="news-subtitle text-base">
                     {news.summary}
                   </CardDescription>
@@ -271,7 +304,10 @@ const Index = () => {
         <section className="mb-12">
           <div className="flex items-center gap-3 mb-6">
             <Icon name="Users" size={24} className="text-primary" />
-            <h2 className="text-2xl font-bold news-title">Социальные новости</h2>
+            <div>
+              <h2 className="text-2xl font-bold news-title">Society</h2>
+              <p className="text-sm text-muted-foreground">社会新闻</p>
+            </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -280,13 +316,16 @@ const Index = () => {
                 <CardHeader>
                   <div className="flex items-center justify-between mb-2">
                     <Badge variant="outline" className="text-xs">
-                      Общество
+                      Society
                     </Badge>
                     <span className="text-xs text-muted-foreground">{news.time}</span>
                   </div>
-                  <CardTitle className="news-title text-xl">
+                  <CardTitle className="news-title text-xl mb-1">
                     {news.title}
                   </CardTitle>
+                  <p className="text-sm text-muted-foreground font-medium mb-2">
+                    {news.titleChinese}
+                  </p>
                   <CardDescription className="news-subtitle text-base">
                     {news.summary}
                   </CardDescription>
@@ -311,47 +350,48 @@ const Index = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="font-bold news-title text-lg mb-4">Singapore News</h3>
+              <h3 className="font-bold news-title text-lg mb-2">Singapore News</h3>
+              <p className="text-sm text-muted-foreground mb-2">新加坡新闻</p>
               <p className="text-sm text-muted-foreground news-subtitle">
-                Достоверные новости Сингапура в режиме реального времени
+                Trusted Singapore news in real-time
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Разделы</h4>
+              <h4 className="font-semibold mb-4">Sections</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-colors">Главная</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">IT и технологии</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Социальные новости</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">События</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Home</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Technology</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Society</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Events</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Контакты</h4>
+              <h4 className="font-semibold mb-4">Contact</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>Email: news@singapore.sg</li>
-                <li>Тел: +65 1234 5678</li>
-                <li>Адрес: Marina Bay, Singapore</li>
+                <li>Tel: +65 6123 4567</li>
+                <li>Address: Marina Bay, Singapore</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Подписка</h4>
+              <h4 className="font-semibold mb-4">Newsletter</h4>
               <p className="text-sm text-muted-foreground mb-4">
-                Получайте последние новости на email
+                Get the latest news in your inbox
               </p>
               <div className="flex gap-2">
                 <Input placeholder="Email" className="text-sm" />
                 <Button size="sm">
-                  Подписаться
+                  Subscribe
                 </Button>
               </div>
             </div>
           </div>
           <Separator className="my-8" />
           <div className="flex items-center justify-between text-sm text-muted-foreground">
-            <p>© 2024 Singapore News. Все права защищены.</p>
+            <p>© 2024 Singapore News. All rights reserved.</p>
             <div className="flex gap-4">
-              <a href="#" className="hover:text-primary transition-colors">Политика конфиденциальности</a>
-              <a href="#" className="hover:text-primary transition-colors">Условия использования</a>
+              <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
             </div>
           </div>
         </div>
